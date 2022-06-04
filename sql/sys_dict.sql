@@ -1,0 +1,11 @@
+INSERT INTO `sys_dict`(`name`, `value`, `type`) VALUES ('user', 'el-icon-user', 'icon');
+INSERT INTO `sys_dict`(`name`, `value`, `type`) VALUES ('house', 'el-icon-house', 'icon');
+INSERT INTO `sys_dict`(`name`, `value`, `type`) VALUES ('menu', 'el-icon-menu', 'icon');
+INSERT INTO `sys_dict`(`name`, `value`, `type`) VALUES ('s-custom', 'el-icon-s-custom', 'icon');
+INSERT INTO `sys_dict`(`name`, `value`, `type`) VALUES ('s-grid', 'el-icon-s-grid', 'icon');
+INSERT INTO `sys_dict`(`name`, `value`, `type`) VALUES ('document', 'el-icon-document', 'icon');
+INSERT INTO `sys_dict`(`name`, `value`, `type`) VALUES ('edit-outline', 'el-icon-edit-outline', 'icon');
+INSERT INTO `sys_dict`(`name`, `value`, `type`) VALUES ('setting', 'el-icon-setting', 'icon');
+INSERT INTO `sys_dict`(`name`, `value`, `type`) VALUES ('edit', 'el-icon-edit', 'icon');
+INSERT INTO `sys_dict`(`name`, `value`, `type`) VALUES ('reading', 'el-icon-reading', 'icon');
+INSERT INTO `sys_dict`(`name`, `value`, `type`) VALUES ('chat-round', 'el-icon-chat-round', 'icon');
