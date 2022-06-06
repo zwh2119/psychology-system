@@ -16,4 +16,4 @@ mybatis-plus:
 
 files:
   upload:
-    path: classpath:files/
+    path: G:/git_code/psychology-system/springboot/src/main/resources/files/
