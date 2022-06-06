@@ -1,11 +1,15 @@
 package com.lyc.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.models.auth.In;
+
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
+
 
 @Getter
 @Setter
@@ -19,7 +23,8 @@ public class Article {
 
     private String content;
 
-    private String publish_time;
+    @TableField(value = "publish_time")
+    private String publishTime;
 
     private String author;
 }

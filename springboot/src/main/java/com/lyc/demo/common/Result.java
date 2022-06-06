@@ -21,6 +21,7 @@ public class Result {
     }
 
     public static com.lyc.demo.common.Result success(Object data) {
+//        System.out.println("data:"+data.toString());
         return new com.lyc.demo.common.Result(Constants.CODE_200, "", data);
     }
 

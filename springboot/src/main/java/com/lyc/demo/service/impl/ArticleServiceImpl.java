@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lyc.demo.entity.Article;
 import com.lyc.demo.mapper.ArticleMapper;
 import com.lyc.demo.service.IArticleService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements IArticleService {
 }
