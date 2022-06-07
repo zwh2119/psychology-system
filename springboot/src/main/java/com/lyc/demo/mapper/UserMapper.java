@@ -6,6 +6,7 @@ import com.lyc.demo.controller.dto.UserPasswordDTO;
 import com.lyc.demo.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 
@@ -20,4 +21,7 @@ import org.apache.ibatis.annotations.Update;
 public interface UserMapper extends BaseMapper<User> {
     @Update("update sys_user set password = #{newPassword} where username = #{username} and password = #{password}")
     int updatePassword(UserPasswordDTO userPasswordDTO);
+
+    @Select("select id from sys_user where username = #{name}")
+    Integer getByName(@Param("name") String userName);
 }

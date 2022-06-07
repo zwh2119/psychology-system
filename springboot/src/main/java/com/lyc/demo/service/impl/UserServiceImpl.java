@@ -16,6 +16,7 @@ import com.lyc.demo.service.IMenuService;
 import com.lyc.demo.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lyc.demo.utils.TokenUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -45,6 +46,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Resource
     private IMenuService menuService;
 
+    @Resource
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
     public UserDTO login(UserDTO userDTO) {
         User one = getUserInfo(userDTO);
@@ -72,7 +76,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User one = getUserInfo(userDTO);
         if(one == null) {
             one = new User();
+
             BeanUtil.copyProperties(userDTO, one, true);
+            one.setPassword(bCryptPasswordEncoder.encode(one.getPassword()));
             save(one); //把 copy完之后的用户对象存储到数据库
         } else {
             throw  new ServiceException(Constants.CODE_600, "用户已存在");
@@ -82,21 +88,45 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public void updatePassword(UserPasswordDTO userPasswordDTO) {
-        int update = userMapper.updatePassword(userPasswordDTO);
-        if (update < 1) {
+
+//        userPasswordDTO.setPassword(bCryptPasswordEncoder.encode(userPasswordDTO.getPassword()));
+//        userPasswordDTO.setNewPassword(bCryptPasswordEncoder.encode(userPasswordDTO.getNewPassword()));
+
+
+
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", userPasswordDTO.getUsername());
+        User one = getOne(queryWrapper);
+        final boolean matches = bCryptPasswordEncoder.matches(userPasswordDTO.getPassword(), one.getPassword());
+        if(!matches)
             throw new ServiceException(Constants.CODE_600, "密码错误");
-        }
+        one.setPassword(bCryptPasswordEncoder.encode(userPasswordDTO.getNewPassword()));
+        saveOrUpdate(one);
+        //        int update = userMapper.updatePassword(userPasswordDTO);
+//        if (update < 1) {
+//            throw new ServiceException(Constants.CODE_600, "密码错误");
+//        }
     }
+
 
     private User getUserInfo(UserDTO userDTO) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", userDTO.getUsername());
-        queryWrapper.eq("password", userDTO.getPassword());
+
+//        queryWrapper.eq("password", userDTO.getPassword());
         User one;
         try {
             one = getOne(queryWrapper);//从数据库查询用户信息
+            if(one==null)
+                return one;
+
+            final boolean matches = bCryptPasswordEncoder.matches(userDTO.getPassword(), one.getPassword());
+            if(!matches)
+                one = null;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ServiceException(Constants.CODE_500, "系统错误");
+
         }
         return one;
     }

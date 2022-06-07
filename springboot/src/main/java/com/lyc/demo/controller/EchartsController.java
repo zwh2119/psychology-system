@@ -55,4 +55,16 @@ public class EchartsController {
         }
         return Result.success(CollUtil.newArrayList(q1, q2, q3, q4));
     }
+
+    @GetMapping("/article")
+    public Result getArticleNum(){
+        return null;
+    }
+
+    @GetMapping("/member")
+    public Result getMemberNum(){
+        return null;
+    }
+
+
 }

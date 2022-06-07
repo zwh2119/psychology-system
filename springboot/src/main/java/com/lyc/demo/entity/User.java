@@ -1,6 +1,7 @@
 package com.lyc.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
@@ -37,6 +38,7 @@ public class User implements Serializable {
       private String username;
 
       @ApiModelProperty("密码")
+      @TableField(value = "password")
       private String password;
 
       @ApiModelProperty("昵称")
